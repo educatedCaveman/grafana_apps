@@ -4,8 +4,8 @@ pipeline {
     environment {
         ANSIBLE_REPO = '/var/lib/jenkins/workspace/ansible_master'
         WEBHOOK = credentials('JENKINS_DISCORD')
-        PORTAINER_DEV_WEBHOOK = credentials('PORTAINER_WEBHOOK_DEV_WATCHTOWER')
-        PORTAINER_PRD_WEBHOOK = credentials('PORTAINER_WEBHOOK_PRD_WATCHTOWER')
+        PORTAINER_DEV_WEBHOOK = credentials('PORTAINER_WEBHOOK_DEV_GRAFANA')
+        PORTAINER_PRD_WEBHOOK = credentials('PORTAINER_WEBHOOK_PRD_GRAFANA')
     }
 
     //triggering periodically so the code is always present
@@ -24,14 +24,14 @@ pipeline {
         }
         // trigger portainer redeploy
         // separated out so this only gets run if the ansible playbook doesn't fail
-        // stage('redeploy portainer stack (DEV)') {
-        //     when { branch 'dev_test' }
-        //     steps {
-        //         // deploy configs to DEV
-        //         echo 'Redeploy DEV stack'
-        //         sh 'http post ${PORTAINER_DEV_WEBHOOK}'
-        //     }
-        // }
+        stage('redeploy portainer stack (DEV)') {
+            when { branch 'dev_test' }
+            steps {
+                // deploy configs to DEV
+                echo 'Redeploy DEV stack'
+                sh 'http post ${PORTAINER_DEV_WEBHOOK}'
+            }
+        }
 
         // deploy code to sevastopol, when the branch is 'master'
         stage('deploy prd code') {

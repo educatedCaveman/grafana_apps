@@ -2,6 +2,8 @@
 version: "3.8"
 networks:
   loki:
+    driver: overlay
+    attachable: true
 services:
   # loki:
   #   image: grafana/loki:2.4.0

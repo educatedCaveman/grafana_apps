@@ -19,6 +19,7 @@ scrape_configs:
       job: varlogs
       __path__: /var/log/*log
   
+scrape_configs:
 # docker logs
 - job_name: docker 
   pipeline_stages:
@@ -28,6 +29,7 @@ scrape_configs:
         job: docker
         __path__: /var/lib/docker/containers/*/*-json.log
 
+scrape_configs:
 # syslog target
 - job_name: syslog
   syslog:

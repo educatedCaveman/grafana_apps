@@ -32,7 +32,10 @@ services:
 
   grafana:
     image: grafana/grafana:latest
-#   user: "1000"
+    # user: "1000"
+    environment:
+     - UID=1000
+     - GID=1000
     volumes:
      - /docker/docker-compose/grafana_apps/grafana:/var/lib/grafana:rw
     ports:

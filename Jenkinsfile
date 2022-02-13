@@ -20,6 +20,7 @@ pipeline {
                 // deploy configs to DEV
                 echo 'deploy docker config files (DEV)'
                 sh 'ansible-playbook ${ANSIBLE_REPO}/deploy/docker/deploy_docker_compose_dev.yml --extra-vars repo="grafana_apps"'
+                sh 'ansible-playbook ${ANSIBLE_REPO}/deploy/docker/grafana_permissions.yml --extra-vars env="dev"'
             }
         }
         // trigger portainer redeploy

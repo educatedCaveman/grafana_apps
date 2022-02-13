@@ -15,6 +15,8 @@ services:
     command: -config.file=/etc/loki/loki-config.yml
     networks:
       - loki
+    environment:
+     - TZ=America/New_York
 
   promtail:
     image: grafana/promtail:2.4.1
@@ -27,6 +29,8 @@ services:
     command: -config.file=/etc/promtail/promtail-config.yml
     networks:
       - loki
+    environment:
+     - TZ=America/New_York
 
   grafana:
     image: grafana/grafana:latest
@@ -37,3 +41,5 @@ services:
     restart: unless-stopped
     networks:
       - loki
+    environment:
+     - TZ=America/New_York

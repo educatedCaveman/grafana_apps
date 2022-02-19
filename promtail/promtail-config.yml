@@ -42,7 +42,7 @@ scrape_configs:
     pipeline_stages:
     - match:
       selector: '{job="syslog"} |~ "level|lvl"'
-      - regex:
-          expression: "(?i)*level=(?P<level>[a-zA-Z]+)"
+      # - regex:
+      #     expression: "(?i)*level=(?P<level>[a-zA-Z]+)"
       - labels:
           level: 'has_level'

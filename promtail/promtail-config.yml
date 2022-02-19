@@ -33,12 +33,12 @@ scrape_configs:
 
     pipeline_stages:
   
-    - match:
-      selector: '{filename=~".+"}'
-      - regex:
-          expression: "^(?i)* (?P<level>level=|lvl=) *$"
-      - labels:
-          level: 'has_level'
+    # - match:
+    #   selector: '{filename=~".+"}'
+    #   - regex:
+    #       expression: "^(?i)* (?P<level>level=|lvl=) *$"
+    #   - labels:
+    #       level: 'has_level'
   
     syslog:
       listen_address: 0.0.0.0:1514

@@ -30,19 +30,23 @@ scrape_configs:
 
   # syslog target
   - job_name: syslog
+
+    pipeline_stages:
+  
+    - match:
+      selector: '{filename=~".+"}'
+      - regex:
+          expression: "^(?i)* (?P<level>level=|lvl=) *$"
+      - labels:
+          level: 'has_level'
+  
     syslog:
       listen_address: 0.0.0.0:1514
       idle_timeout: 60s
       label_structured_data: yes
       labels:
         job: "syslog"
+  
     relabel_configs:
       - source_labels: ['__syslog_message_hostname']
         target_label: 'host'
-    pipeline_stages:
-    - match:
-      selector: '{job="syslog"} |~ "level|lvl"'
-      # - regex:
-      #     expression: "(?i)*level=(?P<level>[a-zA-Z]+)"
-      - labels:
-          level: 'has_level'

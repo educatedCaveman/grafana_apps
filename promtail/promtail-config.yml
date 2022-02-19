@@ -10,23 +10,23 @@ clients:
 
 scrape_configs:
 
-  # local machine logs
-  - job_name: local
-    static_configs:
-    - targets:
-        - localhost
-      labels:
-        job: varlogs
-        __path__: /var/log/*log
+  # # local machine logs
+  # - job_name: local
+  #   static_configs:
+  #   - targets:
+  #       - localhost
+  #     labels:
+  #       job: varlogs
+  #       __path__: /var/log/*log
     
-  # docker logs
-  - job_name: docker 
-    pipeline_stages:
-      - docker: {}
-    static_configs:
-      - labels:
-          job: docker
-          __path__: /var/lib/docker/containers/*/*-json.log
+  # # docker logs
+  # - job_name: docker 
+  #   pipeline_stages:
+  #     - docker: {}
+  #   static_configs:
+  #     - labels:
+  #         job: docker
+  #         __path__: /var/lib/docker/containers/*/*-json.log
 
   # syslog target
   - job_name: syslog
@@ -39,3 +39,10 @@ scrape_configs:
     relabel_configs:
       - source_labels: ['__syslog_message_hostname']
         target_label: 'host'
+    pipeline_stages:
+    - match:
+      selector: '{job="syslog"} |~ "level|lvl"'
+      - regex:
+          expression: "(?i)*level=(?P<level>[a-zA-Z]+)"
+      - labels:
+          level: 'has_level'

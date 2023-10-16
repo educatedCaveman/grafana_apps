@@ -19,7 +19,7 @@ services:
     #  - TZ=America/New_York
 
   promtail:
-    image: grafana/promtail:2.9.1
+    image: grafana/promtail:2.9.2
     volumes:
       - /var/log:/var/log
       - /docker/docker-compose/grafana_apps/promtail:/etc/promtail

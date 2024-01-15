@@ -15,8 +15,8 @@ services:
     command: -config.file=/etc/loki/loki-config.yml
     networks:
       - loki
-    # environment:
-    #  - TZ=America/New_York
+    environment:
+     - TZ=America/New_York
 
   promtail:
     image: grafana/promtail:2.9.3

@@ -33,7 +33,7 @@ services:
      - TZ=America/New_York
 
   grafana:
-    image: grafana/grafana@sha256:1c2ca5868432ae258711afa5c18f8ae61a6c725bec2586b186e5cd0adbf31496
+    image: grafana/grafana@sha256:8c7bd61fff7869c78df852673d8157227c9c24054e49b29cc95cb492ae07796c
     volumes:
      - /docker/docker-compose/grafana_apps/grafana:/var/lib/grafana
     ports:
